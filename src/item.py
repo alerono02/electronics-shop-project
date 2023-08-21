@@ -1,3 +1,8 @@
+import csv
+from csv import DictReader
+import os
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -14,7 +19,7 @@ class Item:
         :param quantity: Количество товара в магазине.
         """
         Item.all.append(self)
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
 
@@ -31,3 +36,26 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= self.pay_rate
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        if len(value) <= 10:
+            self.__name = value
+        else:
+            self.__name = value[:10]
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('../src/items.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                cls(row['name'], row['price'], row['quantity'])
+
+    @staticmethod
+    def string_to_number(num):
+        num = float(num)
+        return int(num)
