@@ -12,3 +12,19 @@ def test_item():
     Item.pay_rate = 0.8
     item1.apply_discount()
     assert item1.price == 800
+
+
+def test_second():
+    # Testcase№3 get name
+    assert item1.name == "phone"
+    # Testcase№4 set name
+    item1.name = "abcdefghijklmnop"
+    assert item1.name == 'abcdefghij'
+    # Testcase№5 instantiate from csv
+    Item.all=[]     # clean the list, bcs item1 instand in Item.all
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
+    # Testcase№6 transform number
+    assert Item.string_to_number('3') == 3
+    assert Item.string_to_number('15.55') == 15
+    assert Item.string_to_number('37.78456') == 37
