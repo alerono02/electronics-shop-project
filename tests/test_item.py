@@ -1,12 +1,19 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
 from src.item import *
+from src.phone import *
 
 
 @pytest.fixture()
 def test_item():
     item1 = Item("phone", 1000, 5)
     return item1
+
+
+@pytest.fixture()
+def test_item2():
+    item2 = Phone('iPhone', 10000, 3, 1)
+    return item2
 
 
 def test_first(test_item):
@@ -37,3 +44,9 @@ def test_second(test_item):
 def test_third(test_item):
     assert repr(test_item) == "Item('phone', 1000, 5)"
     assert str(test_item) == 'phone'
+
+
+def test_fourth(test_item, test_item2):
+    assert str(test_item2) == 'iPhone'
+    assert repr(test_item2) == "Phone('iPhone', 10000, 3, 1)"
+    assert test_item + test_item2 == 8
