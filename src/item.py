@@ -71,3 +71,7 @@ class Item:
     def string_to_number(num):
         num = float(num)
         return int(num)
+
+    def __add__(self, other):
+        if self.__class__.__name__ in ('Item', 'Phone') and other.__class__.__name__ in ('Item', 'Phone'):
+            return self.quantity + other.quantity
