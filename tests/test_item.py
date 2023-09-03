@@ -2,6 +2,7 @@
 import pytest
 from src.item import *
 from src.phone import *
+from src.keyboard import *
 
 
 @pytest.fixture()
@@ -50,3 +51,16 @@ def test_fourth(test_item, test_item2):
     assert str(test_item2) == 'iPhone'
     assert repr(test_item2) == "Phone('iPhone', 10000, 3, 1)"
     assert test_item + test_item2 == 8
+
+
+def test_fifth():
+    kb = Keyboard('Razer', 1500, 3)
+    kb.change_lang()
+    assert str(kb.language) == "RU"
+    kb.change_lang().change_lang()
+    assert str(kb.language) == "RU"
+    try:
+        kb.language = 'CH'
+        raise AssertionError
+    except AttributeError:
+        pass
