@@ -59,8 +59,12 @@ def test_fifth():
     assert str(kb.language) == "RU"
     kb.change_lang().change_lang()
     assert str(kb.language) == "RU"
-    try:
+    with pytest.raises(AttributeError):
         kb.language = 'CH'
-        raise AssertionError
-    except AttributeError:
-        pass
+
+
+def test_execution():
+    with pytest.raises(FileNotFoundError, match='Отсутствует файл item.csv'):
+        Item.instantiate_from_csv('test.csv')
+    with pytest.raises(InstantiateCSVError, match="Файл item.csv поврежден"):
+        Item.instantiate_from_csv('test_item.csv')
